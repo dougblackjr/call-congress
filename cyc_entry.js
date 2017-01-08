@@ -9,6 +9,8 @@ var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var dotenv = require('dotenv');
 var nunjucks = require('nunjucks');
+// ADded MongoDB for callbacks
+var MongoClient = require('mongodb').MongoClient
 
 // Load environment variables from .env file
 dotenv.load();
