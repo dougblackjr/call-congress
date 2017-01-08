@@ -9,11 +9,27 @@ var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
 var dotenv = require('dotenv');
 var nunjucks = require('nunjucks');
-// ADded MongoDB for callbacks
-var MongoClient = require('mongodb').MongoClient
+// Added MongoDB for callbacks
+var mongoose = require('mongoose');
 
 // Load environment variables from .env file
 dotenv.load();
+
+// Database
+var Schema = mongoose.Schema;
+mongoose.connect('mongodb://' + process.env.MONGO_DATABASE);
+
+// Create caller Schema
+var callerSchema = new Schema({
+// Callers have phone number and callback date
+  phoneNumber: String,
+  callbackDate: Date,
+  created_at: Date,
+  updated_at: Date
+});
+
+
+// Models
 
 // Controllers
 var phoneController = require('./controllers/phone');
@@ -37,6 +53,8 @@ app.use(session({ secret: process.env.SESSION_SECRET, resave: true, saveUninitia
 app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// Routes
 app.post('/new_phone_call', phoneController.newCall);
 app.get('/new_phone_call', phoneController.newCallTestGet);
 app.post('/redir_call_for_zip', phoneController.redirectCall);
