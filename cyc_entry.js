@@ -30,6 +30,8 @@ var callerSchema = new Schema({
 
 
 // Models
+var Callback = mongoose.model('Callback', callerSchema);
+module.exports = Callback;
 
 // Controllers
 var phoneController = require('./controllers/phone');
